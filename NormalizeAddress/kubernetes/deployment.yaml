@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: NormalizeAddress
+  name: NormalizeAddress
+  labels:
+    app: NormalizeAddress
+spec:
+  selector:
+    matchLabels:
+      app: NormalizeAddress
+  template:
+    metadata:
+      labels:
+        app: NormalizeAddress
+        name: NormalizeAddress
+    spec:
+      containers:
+        - name: NormalizeAddress
+          image: azar-intelops/records-db-web-api/NormalizeAddress
+          imagePullPolicy: Always
+          ports:
+        
+          - containerPort: 8084
+            name: http
+        
+        
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 15
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+        
