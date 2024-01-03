@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: DefaultRecordDbdataConfiguration
+  name: DefaultRecordDbdataConfiguration
+  labels:
+    app: DefaultRecordDbdataConfiguration
+spec:
+  selector:
+    matchLabels:
+      app: DefaultRecordDbdataConfiguration
+  template:
+    metadata:
+      labels:
+        app: DefaultRecordDbdataConfiguration
+        name: DefaultRecordDbdataConfiguration
+    spec:
+      containers:
+        - name: DefaultRecordDbdataConfiguration
+          image: azar-intelops/records-db-web-api/DefaultRecordDbdataConfiguration
+          imagePullPolicy: Always
+          ports:
+        
+          - containerPort: 8082
+            name: http
+        
+        
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 15
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+        
